@@ -1,2 +1,9 @@
 10/10/2019
 	- T2 filtrado por días (MARTES).
+
+17/10/2019
+	- Elegimos 36 características: accelerometer (x, y, z), magnetic field (x, y, z), gyroscope (x, y, z).
+	- Aplicamos PCA. Para hacer un análisis viable, mínimo número de componentes es 5. No se puede visualizar, así que
+	cambiamos de características.
+	- Aplicamos PCA con 12 características, correspondientes al accelerometer (x, y , z). Con dos componentes podemos visualizar, y hacer un
+	análisis viable.
