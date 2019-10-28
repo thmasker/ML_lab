@@ -26,6 +26,7 @@ df['date'] = [d.date() for d in df['TimeStemp']]
 # list the available days
 print(df['date'].unique())
 #filter data by date
+
 df.date = pd.to_datetime(df.date) 
 df_tuesdays = df[df['date'].isin(pd.bdate_range(
     '2016-04-01',
@@ -34,6 +35,8 @@ df_tuesdays = df[df['date'].isin(pd.bdate_range(
 print(df_tuesdays.shape)
 print(df_tuesdays.head())
 print(df_tuesdays['date'].unique())
+
+df_tuesdays.drop(['date', 'TimeStemp'], axis=1, inplace=True)
 df_tuesdays.to_csv("T2_tuesdays.csv")
 
 
