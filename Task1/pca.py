@@ -1,5 +1,3 @@
-
-
 import pandas as pd
 
 
@@ -27,11 +25,11 @@ numbers = numpy.arange(len(X_pca))
 fig, ax = plt.subplots()
 for i in range(len(X_pca)):
     plt.plot(X_pca[i][0], X_pca[i][1]) 
-#for i in range(len(X_pca)):
+# for i in range(len(X_pca)):
 #    plt.text(X_pca[i][0], X_pca[i][1], numbers[i]) 
-# be careful with xlim and ylim
-#plt.xlim(-1, 4)
-#plt.ylim(-0.2, 1)
+# # be careful with xlim and ylim
+# plt.xlim(-1, 4)
+# plt.ylim(-0.2, 1)
 ax.grid(True)
 fig.tight_layout()
 plt.show()
