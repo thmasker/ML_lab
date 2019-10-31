@@ -1,21 +1,13 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
-df = pd.read_csv("T2_features.csv")
-df = df.dropna()
-
+import os
 from sklearn import preprocessing
-
-scaler = preprocessing.StandardScaler()
-df_scaled = scaler.fit_transform(df)
-
-#2. PCA Estimation
 from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from sklearn import metrics
 
-estimator = PCA(n_components = 2)
-X_pca = estimator.fit_transform(df_scaled)
-
-# parameters
+#----------------------------------------------------------
+# K-means parameters
 init = 'random' # initialization method 
 
 # to run 10 times with different random centroids 
@@ -27,15 +19,32 @@ max_iter = 300
 
 # controls the tolerance with regard to the changes in the 
 # within-cluster sum-squared-error to declare convergence
-
 tol = 1e-04 
 
  # random seed
 random_state = 0
+#----------------------------------------------------------
 
-from sklearn.cluster import KMeans
-from sklearn import metrics
+FEATURES_FILE = os.path.join('.', 'T2_features.csv')
 
+
+print(f"Loading extracted features from {FEATURES_FILE}")
+df = pd.read_csv(FEATURES_FILE)
+df = df.dropna()
+
+
+##  [ Normalization ]
+scaler = preprocessing.StandardScaler()
+df_scaled = scaler.fit_transform(df)
+
+
+## [ PCA Estimation ]
+estimator = PCA(n_components = 2)
+X_pca = estimator.fit_transform(df_scaled)
+
+
+
+## [ Silhouette & distortion checking ]
 distortions = []
 silhouettes = []
 
@@ -55,6 +64,12 @@ for i in range(2, 11):
 # plt.ylabel('Silhouette')
 # plt.show()
 
+# Interpretation:
+#   - k=4 seems like the most balanced choice, since
+#       it provides a high silhouette and a low distortion
+
+
+## [ K-Means ]
 k = 4
 
 km = KMeans(k, init, n_init = iterations ,
@@ -62,12 +77,11 @@ km = KMeans(k, init, n_init = iterations ,
 
 y_km = km.fit_predict(X_pca)
 
-from sklearn import metrics
+print("Silhouette Coefficient: {:0.3f}".format(metrics.silhouette_score(X_pca, y_km)))
+print('Distortion: {:.2f}'.format(km.inertia_))
 
-print("Silhouette Coefficient: %0.3f"
-      % metrics.silhouette_score(X_pca, y_km))
-      
-print('Distortion: %.2f' % km.inertia_)
+
+## [ Plot ]
 
 # #plotting orginal points with color related to label
 # plt.scatter(X_pca[:,0], X_pca[:,1], c=km.labels_,s=50)
@@ -75,6 +89,17 @@ print('Distortion: %.2f' % km.inertia_)
 # plt.scatter(km.cluster_centers_[:,0], km.cluster_centers_[:,1], c='blue',s=50)
 # plt.grid()
 # plt.show()
+
+# Interpretation:
+#   - The phone is usually resting in a table (probably blue group)
+#   - Slight variations in the X and Y axes might represent steady behaviours
+#       like carrying it on the pocket (groups green and yellow)
+#   - The purple group has a lot of variation in Component2 (related to Z axis).
+#       This behaviour might be related to:
+#           + Holding phone on hands (using the phone)
+#           + Phone falling (outliers)
+
+
 
 df['kmeans_group'] = km.labels_
 
