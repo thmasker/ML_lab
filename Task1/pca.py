@@ -15,6 +15,7 @@ df = df.dropna()
 
 
 ##  Normalization
+# TODO: MinMaxScaler provides better explained variance ratio when using PCA
 scaler = preprocessing.StandardScaler()
 df_scaled = scaler.fit_transform(df)
 

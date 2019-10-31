@@ -1,29 +1,38 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
-df = pd.read_csv("T2_features.csv")
-df = df.dropna()
-
+import os
 from sklearn import preprocessing
-
-scaler = preprocessing.MinMaxScaler()
-datanorm = scaler.fit_transform(df)
-
-#2. PCA Estimation
 from sklearn.decomposition import PCA
 
-estimator = PCA (n_components = 2)
-X_pca = estimator.fit_transform(datanorm)
+
+
+FEATURES_FILE = os.path.join('.', 'T2_features.csv')
+
+
+print(f"Loading extracted features from {FEATURES_FILE}")
+df = pd.read_csv(FEATURES_FILE)
+df = df.dropna()
+
+
+##  [ Normalization ]
+scaler = preprocessing.MinMaxScaler()
+df_norm = scaler.fit_transform(df)
+
+
+## [ PCA Estimation ]
+estimator = PCA(n_components = 2)
+X_pca = estimator.fit_transform(df_norm)
 
 print(estimator.explained_variance_ratio_)
 
-# 3.1. Compute the similarity matrix
+## [ DBScan ]
+# 1. Compute the similarity matrix
 import sklearn.neighbors
 
 dist = sklearn.neighbors.DistanceMetric.get_metric('euclidean')
-matsim = dist.pairwise(datanorm)
+matsim = dist.pairwise(df_norm)
 
-# 3.1.1 Visualization
+# 1.1 Visualization
 import seaborn as sns
 
 ax = sns.heatmap(matsim,vmin=0, vmax=1)
@@ -33,12 +42,12 @@ import numpy
 
 minPts=3
 
-A = kneighbors_graph(datanorm, minPts, include_self=False)
+A = kneighbors_graph(df_norm, minPts, include_self=False)
 Ar = A.toarray()
 
 seq = []
-for i,s in enumerate(datanorm):
-    for j in range(len(datanorm)):
+for i,s in enumerate(df_norm):
+    for j in range(len(df_norm)):
         if Ar[i][j] != 0:
             seq.append(matsim[i][j])
             
@@ -57,7 +66,7 @@ plt.show()
 from sklearn.cluster import DBSCAN
 
 for eps in numpy.arange(0.25, 0.85, 0.10):
-  db = DBSCAN(eps, min_samples=minPts).fit(datanorm)
+  db = DBSCAN(eps, min_samples=minPts).fit(df_norm)
   core_samples_mask = numpy.zeros_like(db.labels_, dtype=bool)
   core_samples_mask[db.core_sample_indices_] = True
   labels = db.labels_
@@ -67,7 +76,7 @@ for eps in numpy.arange(0.25, 0.85, 0.10):
 
 print(labels)
 
-db = DBSCAN(eps=0.55, min_samples=minPts).fit(datanorm)
+db = DBSCAN(eps=0.55, min_samples=minPts).fit(df_norm)
 labels = db.labels_
 
 #plotting orginal points with color related to label
