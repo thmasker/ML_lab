@@ -7,3 +7,13 @@
 	cambiamos de características.
 	- Aplicamos PCA con 12 características, correspondientes al accelerometer (x, y , z). Con dos componentes podemos visualizar, y hacer un
 	análisis viable.
+
+29/10/2019
+	- Código del k-Means
+
+30/10/2019
+	- Hierarchical & DBscan
+
+31/10/2019
+	- Interpretación de K-Means basada en los ejes en los que se centra cada componente del PCA
+	- Queda pendiente probar MinMaxScaler en PCA y K-Means, da mayor explained variance ratio
