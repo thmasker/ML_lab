@@ -24,9 +24,9 @@ FEATURES = [
     'AccelerometerStat_y_FOURTH_VAL_FFT',
     'AccelerometerStat_z_FIRST_VAL_FFT',
     'AccelerometerStat_z_SECOND_VAL_FFT',
-    'AccelerometerStat_z_THIRD_VAL_FFT' ]
+    'AccelerometerStat_z_THIRD_VAL_FFT',
+    'AccelerometerStat_z_FOURTH_VAL_FFT']
 ''',
-    'AccelerometerStat_z_FOURTH_VAL_FFT',
     'GyroscopeStat_x_FIRST_VAL_FFT',
     'GyroscopeStat_x_SECOND_VAL_FFT',
     'GyroscopeStat_x_THIRD_VAL_FFT',
@@ -53,4 +53,4 @@ FEATURES = [
     'MagneticField_z_FOURTH_VAL_FFT' '''
 #]
 
-df[FEATURES].to_csv('T2_features.csv')
+df[FEATURES].to_csv('T2_features.csv', index=False)
