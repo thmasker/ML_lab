@@ -1,9 +1,9 @@
 
-
+import os
 import pandas as pd
 
 
-df = pd.read_csv("T2_tuesdays.csv")
+df = pd.read_csv(os.path.join('.', 'data', 'processed', 'T2_tuesdays.csv'))
 pd.set_option('display.width', None)
 pd.set_option('display.max_columns', None)
 #print('\n'.join(df.columns.to_list()))
@@ -53,4 +53,4 @@ FEATURES = [
     'MagneticField_z_FOURTH_VAL_FFT' '''
 #]
 
-df[FEATURES].to_csv('T2_features.csv', index=False)
+df[FEATURES].to_csv(os.path.join('.', 'data', 'processed', 'T2_features.csv'), index=False)

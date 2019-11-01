@@ -5,6 +5,7 @@ Created on Thu Oct  3 12:18:34 2019
 @author: FranciscoP.Romero
 """
 
+import os
 import pandas as pd
 import datetime
 
@@ -37,7 +38,7 @@ print(df_tuesdays.head())
 print(df_tuesdays['date'].unique())
 
 df_tuesdays.drop(['date', 'TimeStemp'], axis=1, inplace=True)
-df_tuesdays.to_csv("T2_tuesdays.csv")
+df_tuesdays.to_csv(os.path.join('.', 'data', 'processed', 'T2_tuesdays.csv'))
 
 
 '''df2 = df[(df['TimeStemp'] > '2016-04-30 00:00:00') & (df['TimeStemp'] <= '2016-04-30 23:59:59')]

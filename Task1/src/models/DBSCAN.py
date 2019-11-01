@@ -6,7 +6,7 @@ from sklearn.decomposition import PCA
 
 
 
-FEATURES_FILE = os.path.join('.', 'T2_features.csv')
+FEATURES_FILE = os.path.join('.', 'data', 'processed', 'T2_features.csv')
 
 
 print(f"Loading extracted features from {FEATURES_FILE}")

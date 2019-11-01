@@ -6,12 +6,13 @@ import matplotlib.pyplot as plt
 import os
 
 
-FEATURES_FILE = os.path.join('.', 'T2_features.csv')
+FEATURES_FILE = os.path.join('.', 'data', 'processed', 'T2_features.csv')
 
 
 print(f"Loading extracted features from {FEATURES_FILE}")
 df = pd.read_csv(FEATURES_FILE)
 df = df.dropna()
+print(df.shape)
 
 
 ##  Normalization

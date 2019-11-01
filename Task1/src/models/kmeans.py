@@ -25,7 +25,7 @@ tol = 1e-04
 random_state = 0
 #----------------------------------------------------------
 
-FEATURES_FILE = os.path.join('.', 'T2_features.csv')
+FEATURES_FILE = os.path.join('.', 'data', 'processed', 'T2_features.csv')
 
 
 print(f"Loading extracted features from {FEATURES_FILE}")
