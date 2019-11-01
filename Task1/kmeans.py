@@ -103,7 +103,7 @@ print('Distortion: {:.2f}'.format(km.inertia_))
 
 df['kmeans_group'] = km.labels_
 
-res = df[['AccelerometerStat_x_FIRST_VAL_FFT','AccelerometerStat_y_FIRST_VAL_FFT','AccelerometerStat_z_FIRST_VAL_FFT','kmeans_group']].groupby(('kmeans_group')).mean()
-# res.plot(kind='bar', legend=True)
-# plt.show()
+res = df.groupby(('kmeans_group')).mean()
+res.plot(kind='bar', legend=True)
+plt.show()
 res.to_excel('KMeans.xlsx')
