@@ -22,7 +22,8 @@ df_scaled = scaler.fit_transform(df)
 
 
 ##  PCA
-estimator = PCA(n_components = 2)
+N_COMPONENTS = 2
+estimator = PCA(n_components = N_COMPONENTS)
 X_pca = estimator.fit_transform(df_scaled)
 print("[ Explained variance ratio ]")
 print(estimator.explained_variance_ratio_)
@@ -33,7 +34,7 @@ print(sum(estimator.explained_variance_ratio_))
 
 
 print("[ Relation between PCA components and features ]")
-print(pd.DataFrame(np.matrix.transpose(estimator.components_), columns=['PC-1', 'PC-2'], index=df.columns))
+print(pd.DataFrame(np.matrix.transpose(estimator.components_), columns=[f'PC-{i}' for i in range(N_COMPONENTS)], index=df.columns))
 # Interpretation:
 #   - Component1 includes mainly contributions from X and Y axes
 #   - Component2 includes mainly contributions from Z axis

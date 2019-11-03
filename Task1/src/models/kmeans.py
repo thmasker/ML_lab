@@ -82,13 +82,19 @@ print('Distortion: {:.2f}'.format(km.inertia_))
 
 
 ## [ Plot ]
+fig, ax = plt.subplots()
+# Plot original points with color related to group
+scatter = ax.scatter(X_pca[:,0], X_pca[:,1], c=km.labels_, s=50)
+# Add group color legend
+ax.add_artist(ax.legend(*scatter.legend_elements(alpha=0.8), loc="upper right", title="Groups"))
+# Plot centroids
+plt.scatter(km.cluster_centers_[:,0], km.cluster_centers_[:,1], c='red', s=50)
 
-# #plotting orginal points with color related to label
-# plt.scatter(X_pca[:,0], X_pca[:,1], c=km.labels_,s=50)
-# # plotting centroids
-# plt.scatter(km.cluster_centers_[:,0], km.cluster_centers_[:,1], c='blue',s=50)
-# plt.grid()
-# plt.show()
+plt.title("K-Means (k=4)")
+plt.xlabel("PC-1")
+plt.ylabel("PC-2")
+plt.grid(True)
+plt.show()
 
 # Interpretation:
 #   - The phone is usually resting in a table (probably blue group)
@@ -101,9 +107,17 @@ print('Distortion: {:.2f}'.format(km.inertia_))
 
 
 
+## Extract outliers
+outliers = df[X_pca[:, 0] > 50]
+outliers.to_csv(os.path.join('.', 'reports', 'tables', 'kmeans_outliers.csv'), index=False)
+
+
+
 df['kmeans_group'] = km.labels_
 
+## Get mean of k-means groups for each feature
 res = df.groupby(('kmeans_group')).mean()
+print(res)
 res.plot(kind='bar', legend=True)
+res.to_csv(os.path.join('.', 'reports', 'tables', 'kmeans_group_mean_per_feature.csv'))
 plt.show()
-res.to_excel('KMeans.xlsx')

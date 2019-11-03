@@ -11,7 +11,7 @@ import datetime
 
 #0 . Load the data 
 # read the csv
-df = pd.read_csv("T2.csv")
+df = pd.read_csv(os.path.join('.', 'data', 'raw', 'T2.csv'))
 # list the columns
 list(df)
 # print number of rows and columns 
