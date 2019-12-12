@@ -8,7 +8,7 @@ Test data --> 20 % attacks + 20 % not attacks
 '''
 THRESHOLD = 0.8
 
-df = pd.read_csv(os.path.join('..', 'data', 'task3_dataset.csv'))
+df = pd.read_csv(os.path.join('.', 'data', 'task3_dataset.csv'))
 pd.set_option('display.width', None)
 pd.set_option('display.max_columns', None)
 
@@ -32,7 +32,9 @@ FEATURES = [
 	'LinearAcceleration_z_MEAN',
 	'attack']
 
-ATTACK = FEATURES.index('attack')
+attack_df = df[df['attack'] == 1]
+noattack_df = df[df['attack'] == 0]
+
 
 train = []
 test = []
@@ -47,5 +49,5 @@ for i, row in df.iterrows():
 df_train = pd.DataFrame(data=train, columns=FEATURES)
 df_test = pd.DataFrame(data=test, columns=FEATURES)
 
-df_train[FEATURES].to_csv(os.path.join('..', 'data', 'task3_train.csv'), index=False)
-df_test[FEATURES].to_csv(os.path.join('..', 'data', 'task3_test.csv'), index=False)
+df_train[FEATURES].to_csv(os.path.join('.', 'data', 'task3_train.csv'), index=False)
+df_test[FEATURES].to_csv(os.path.join('.', 'data', 'task3_test.csv'), index=False)
