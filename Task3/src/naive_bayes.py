@@ -8,10 +8,10 @@ import pandas as pd
 import numpy as np
 
 from sklearn import preprocessing
-from sklearn.naive_bayes import GaussianNB, BernoulliNB
+from sklearn.naive_bayes import GaussianNB, ComplementNB
 from sklearn.metrics import accuracy_score
 
-df_train = pd.read_csv(os.path.join('.', 'data', 'processed', 'train.csv'))
+df_train = pd.read_csv(os.path.join('.', 'data', 'processed', 'train_balanced.csv'))
 df_train = df_train.sample(frac=1).reset_index(drop=True)
 df_test = pd.read_csv(os.path.join('.', 'data', 'processed', 'test.csv'))
 df_test = df_test.sample(frac=1).reset_index(drop=True)
@@ -44,7 +44,7 @@ y_train = df_train['attack']
 y_test = df_test['attack']
 
 ## [ NORMALIZATION ]
-scaler = preprocessing.StandardScaler().fit(X_train)
+scaler = preprocessing.MinMaxScaler().fit(X_train)
 X_train = scaler.transform(X_train)
 
 X_test = scaler.transform(X_test)
@@ -52,14 +52,20 @@ X_test = scaler.transform(X_test)
 
 ## [ NAIVE-BAYES MODEL ]
 
-model = BernoulliNB()
 #model = GaussianNB()
+model = ComplementNB()
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
 
 acc = accuracy_score(y_test, y_pred)
 print("Accuracy:", acc)
+
+# metrics calculation
+from sklearn.metrics import mean_absolute_error
+mae = mean_absolute_error(y_test, y_pred)
+print("MAE:", mae)
+
 
 xx = np.stack(i for i in range(len(y_test)))
 plt.scatter(xx, y_test, c='r', label='data')
