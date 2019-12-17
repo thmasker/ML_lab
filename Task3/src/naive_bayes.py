@@ -3,17 +3,18 @@ import os
 import matplotlib.pyplot as plt
 
 import pandas as pd
+# pd.set_option('display.width', None)
+# pd.set_option('display.max_columns', None)
 import numpy as np
 
 from sklearn import preprocessing
 from sklearn.naive_bayes import GaussianNB, BernoulliNB
 from sklearn.metrics import accuracy_score
 
-# pd.set_option('display.width', None)
-# pd.set_option('display.max_columns', None)
-
-df_train = pd.read_csv(os.path.join('.', 'data', 'task3_train.csv'))
-df_test = pd.read_csv(os.path.join('.', 'data', 'task3_train.csv'))
+df_train = pd.read_csv(os.path.join('.', 'data', 'processed', 'train.csv'))
+df_train = df_train.sample(frac=1).reset_index(drop=True)
+df_test = pd.read_csv(os.path.join('.', 'data', 'processed', 'test.csv'))
+df_test = df_test.sample(frac=1).reset_index(drop=True)
 
 FEATURES = [
 	# 'UserID',
@@ -39,19 +40,23 @@ FEATURES = [
 X_train = df_train[FEATURES]
 X_test = df_test[FEATURES]
 
-scaler = preprocessing.StandardScaler().fit(X_train)
-X_scaled = scaler.transform(X_train)
-
-#scaler = preprocessing.StandardScaler().fit(X_test)
-X_test_scaled = scaler.transform(X_test)
-
 y_train = df_train['attack']
 y_test = df_test['attack']
 
-model = BernoulliNB()#GaussianNB()
-model.fit(X_scaled, y_train)
+## [ NORMALIZATION ]
+scaler = preprocessing.StandardScaler().fit(X_train)
+X_train = scaler.transform(X_train)
 
-y_pred = model.predict(X_test_scaled)
+X_test = scaler.transform(X_test)
+
+
+## [ NAIVE-BAYES MODEL ]
+
+model = BernoulliNB()
+#model = GaussianNB()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
 
 acc = accuracy_score(y_test, y_pred)
 print("Accuracy:", acc)
@@ -63,8 +68,6 @@ plt.axis('tight')
 plt.legend()
 plt.title('Gaussian NaiveBayes')
 plt.show()
-
-
 
 
 
