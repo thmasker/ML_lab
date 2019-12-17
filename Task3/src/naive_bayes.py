@@ -66,7 +66,7 @@ plt.scatter(xx, y_test, c='r', label='data')
 plt.plot(xx, y_pred, c='g', label='prediction')
 plt.axis('tight')
 plt.legend()
-plt.title('Gaussian NaiveBayes')
+plt.title('Bernoulli NaiveBayes')
 plt.show()
 
 
