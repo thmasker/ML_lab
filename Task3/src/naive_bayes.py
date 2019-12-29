@@ -11,6 +11,7 @@ from sklearn import preprocessing
 from sklearn.naive_bayes import GaussianNB, ComplementNB
 from sklearn.metrics import accuracy_score
 
+#df_train = pd.read_csv(os.path.join('.', 'data', 'processed', 'train.csv'))
 df_train = pd.read_csv(os.path.join('.', 'data', 'processed', 'train_balanced.csv'))
 df_train = df_train.sample(frac=1).reset_index(drop=True)
 df_test = pd.read_csv(os.path.join('.', 'data', 'processed', 'test.csv'))
@@ -25,11 +26,11 @@ FEATURES = [
 	'GyroscopeStat_z_MEAN',
 	'GyroscopeStat_COV_z_x',
 	'GyroscopeStat_COV_z_y',
-	'MagneticField_x_MEAN',
-	'MagneticField_z_MEAN',
-	'MagneticField_COV_z_x',
-	'MagneticField_COV_z_y',
-	'Pressure_MEAN',
+	#'MagneticField_x_MEAN',
+	#'MagneticField_z_MEAN',
+	#'MagneticField_COV_z_x',
+	#'MagneticField_COV_z_y',
+	#'Pressure_MEAN',
 	'LinearAcceleration_COV_z_x',
 	'LinearAcceleration_COV_z_y',
 	'LinearAcceleration_x_MEAN',
@@ -72,7 +73,7 @@ plt.scatter(xx, y_test, c='r', label='data')
 plt.plot(xx, y_pred, c='g', label='prediction')
 plt.axis('tight')
 plt.legend()
-plt.title('Bernoulli NaiveBayes')
+plt.title('Component NaiveBayes')
 plt.show()
 
 
@@ -136,4 +137,5 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 plot_confusion_matrix(y_test, y_pred , classes = unique_labels(y_test, y_pred), normalize=True,
                       title='Normalized confusion matrix')
 
+plt.ylim((-0.5, 1.5))
 plt.show()
