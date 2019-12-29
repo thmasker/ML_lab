@@ -1,0 +1,35 @@
+Random Forest:
+               precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      4896
+           1       0.00      0.00      0.00         8
+
+    accuracy                           1.00      4904
+   macro avg       0.50      0.50      0.50      4904
+weighted avg       1.00      1.00      1.00      4904
+
+Confussion Matrixn:
+
+preds      0
+actual      
+0       4896
+1          8
+Feature Relevance:
+
+                       Feature  Relevancy
+0         GyroscopeStat_x_MEAN   0.097073
+1         GyroscopeStat_z_MEAN   0.084831
+2        GyroscopeStat_COV_z_x   0.160356
+3        GyroscopeStat_COV_z_y   0.143161
+4         MagneticField_x_MEAN   0.048118
+5         MagneticField_z_MEAN   0.081238
+6        MagneticField_COV_z_x   0.034380
+7        MagneticField_COV_z_y   0.031649
+8                Pressure_MEAN   0.036295
+9   LinearAcceleration_COV_z_x   0.139712
+10  LinearAcceleration_COV_z_y   0.102129
+11   LinearAcceleration_x_MEAN   0.014377
+12   LinearAcceleration_z_MEAN   0.026682 
+
+Maximum relevance RF: 0.16035619644648189 
+

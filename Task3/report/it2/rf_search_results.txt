@@ -1,0 +1,12 @@
+Model with rank: 1
+Mean validation score: 0.912 (std: 0.020)
+Parameters: {'bootstrap': False, 'criterion': 'entropy', 'max_depth': 4, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 33}
+
+Model with rank: 2
+Mean validation score: 0.892 (std: 0.024)
+Parameters: {'bootstrap': False, 'criterion': 'entropy', 'max_depth': 4, 'max_features': 'sqrt', 'min_samples_leaf': 11, 'min_samples_split': 32}
+
+Model with rank: 3
+Mean validation score: 0.865 (std: 0.020)
+Parameters: {'bootstrap': True, 'criterion': 'gini', 'max_depth': 5, 'max_features': 'sqrt', 'min_samples_leaf': 7, 'min_samples_split': 21}
+
